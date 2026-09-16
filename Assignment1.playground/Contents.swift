@@ -19,8 +19,12 @@ var numberOfHobbies = 3
 let favoriteNumber = 67
 var isHobbyCreative: Bool = true
 
+var status = "student"
+let city = "Pavlodar"
+var hobbies = ["stretching" , "reading"]
+
 // Step 3
-var lifeStory = "My name is \(firstName) . I am \(age) years old, born in \(birthYear). I am currently a student. I enjoy \(hobby), which is a creative hobby. I have \(numberOfHobbies) hobbies in total, and my favorite number is \(favoriteNumber)."
+var lifeStory = "My name is \(firstName). I am from \(city). I am \(age) years old, born in \(birthYear). I am currently a \(status). I enjoy \(hobby), which is \(isHobbyCreative ? "a creative" : "not a creative") hobby. I also love \(hobbies[0]), and \(hobbies[1]), in total i have \(numberOfHobbies) hobbies, and my favorite number is \(favoriteNumber)."
 
 //Step 4
 print(lifeStory)
