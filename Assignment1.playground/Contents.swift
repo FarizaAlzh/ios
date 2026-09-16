@@ -23,13 +23,24 @@ var status = "student"
 let city = "Pavlodar"
 var hobbies = ["stretching" , "reading"]
 
+// Bonus futureGoals
+let studentYear = 4
+var semester = 7
+let discipline = "IOS development"
+var emoji = "🤩"
+var isPrediction: Bool = true
+
 // Step 3
-var lifeStory = "My name is \(firstName). I am from \(city). I am \(age) years old, born in \(birthYear). I am currently a \(status). I enjoy \(hobby), which is \(isHobbyCreative ? "a creative" : "not a creative") hobby. I also love \(hobbies[0]), and \(hobbies[1]), in total i have \(numberOfHobbies) hobbies, and my favorite number is \(favoriteNumber)."
+var lifeStory = "My name is \(firstName). I am from \(city). I am \(age) years old, born in \(birthYear). I am currently a \(status). \nI enjoy \(hobby), which is \(isHobbyCreative ? "a creative" : "not a creative") hobby. I also love \(hobbies[0]), and \(hobbies[1]), in total i have \(numberOfHobbies) hobbies, and my favorite number is \(favoriteNumber)."
+
+var futureGoals = "Right now I'm a \(studentYear)rd year student. In this \(semester)th semester I chose the \(discipline) discipline. I'm super excited about it \(emoji), and I believe I will achieve it \(isPrediction ? "🥳" : "😔")"
 
 //Step 4
 print(lifeStory)
+print(futureGoals)
 
-//Bonus
+
+
 
 
 
