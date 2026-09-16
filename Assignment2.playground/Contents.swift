@@ -26,7 +26,7 @@ print("Medium tasks: ")
 //1
 var set1: Set<Int> = [1,2,3,4]
 var set2: Set<Int> = [3,4,5,6]
-var sets = set1.union(set2)
+var sets = set1.intersection(set2)
 print(sets)
 
 //2
@@ -38,6 +38,8 @@ print(dictionary)
 var arr1 = ["apple", "banana"]
 var arr2 = ["cherry", "date"]
 print(arr1+arr2)
+
+
 
 
 
