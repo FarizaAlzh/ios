@@ -39,7 +39,22 @@ var arr1 = ["apple", "banana"]
 var arr2 = ["cherry", "date"]
 print(arr1+arr2)
 
+//Hard Tasks
+print("Hard Tasks: ")
+//1
+var dicCountry: [String: Int] = ["Russia": 144200000, "China": 1405918803, "India": 1429700205, "United States": 342620143]
+dicCountry["Kazakhstan"] = 20330000
+print(dicCountry)
 
+//2
+var setAnimals1: Set<String> = ["cat", "dog"]
+var setAnimals2: Set<String> = ["mouse", "dog"]
+var setUnion = (setAnimals1.union(setAnimals2))
+print(setUnion.subtracting(setAnimals2))
 
-
-
+//3
+var dicGrades: [String: [Int]] = [
+    "Fariza": [90,85,78],
+    "Arai": [95,65,87],
+    "Sanzhar": [100,76,86]]
+print(dicGrades["Arai"]!)
