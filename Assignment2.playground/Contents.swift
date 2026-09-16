@@ -57,4 +57,23 @@ var dicGrades: [String: [Int]] = [
     "Fariza": [90,85,78],
     "Arai": [95,65,87],
     "Sanzhar": [100,76,86]]
-print(dicGrades["Arai"]!)
+print(dicGrades["Arai"]![1])
+
+
+//Result
+/*
+ Easy tasks:
+ orange
+ [1, 67, 76, 2, 52, 3]
+ Optional(2014)
+ 2014
+ ["red", "pink", "yellow", "brown"]
+ Medium tasks:
+ [3, 4]
+ ["Arai": 4.5, "Sanzhar": 4.0, "Fariza": 5.0]
+ ["apple", "banana", "cherry", "date"]
+ Hard Tasks:
+ ["Kazakhstan": 20330000, "China": 1405918803, "India": 1429700205, "United States": 342620143, "Russia": 144200000]
+ ["cat"]
+ 65
+ */
