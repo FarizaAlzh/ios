@@ -39,6 +39,13 @@ var futureGoals = "Right now I'm a \(studentYear)rd year student. In this \(seme
 print(lifeStory)
 print(futureGoals)
 
+// Result
+/*
+ 21
+ My name is Fariza. I am from Pavlodar. I am 21 years old, born in 2005. I am currently a student.
+ I enjoy dancing, which is a creative hobby. I also love stretching, and reading, in total i have 3 hobbies, and my favorite number is 67.
+ Right now I'm a 4rd year student. In this 7th semester I chose the IOS development discipline. I'm super excited about it 🤩, and I believe I will achieve it 🥳
+ */
 
 
 
