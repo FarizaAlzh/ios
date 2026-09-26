@@ -89,7 +89,21 @@ print("ALMA-7 systems online: \(rawLog.count) log lines, \(crew.count) crew memb
 // MARK: Level 1 · Decoding Telemetry
 
 // 1.1
-// func parseReading(_ raw: String) -> Reading? { }
+//Reading? либо возвращает reading либо nill
+func parseReading(_ raw: String) -> Reading? {
+    guard let (left, right) = splitOnce(raw, by: ":"),
+          !left.isEmpty,
+          let value = Int(right),
+          value >= 0 || left == "TEMP" else{
+        return nil
+    }
+    return(sensor: left, value: value)
+}
+
+print(parseReading("O2:87"))
+print(parseReading("TEMP:-12"))
+print(parseReading("O2:9x"))
+
 
 // 1.2
 // func parseLog(_ lines: [String]) -> (valid: [Reading], invalidCount: Int) { }
@@ -193,5 +207,8 @@ func firstCritical(in crew: [CrewMember]) -> String {
  Bonus. Where does the alarm counter live after makeAlarm returns?
 
 */
+
+
+
 
 
