@@ -190,7 +190,6 @@ func stats(of values: [Int]) -> (min: Int, max: Int, average: Double)? {
 }
 print("Level 2 - 2.2")
 print(stats(of: o2Values))
-print(stats(2,5,7,4))
 //Optional((min: 64, max: 90, average: 78.0))
 //Optional((min: 2, max: 7, average: 4.5))
 
@@ -206,6 +205,45 @@ print(stats())
 
 
 // 2.3 · The Closure Ladder (5 sorts, then compare results in code)
+/*
+ Sort the valid readings by value in descending order in five ways, each shorter than the last:
+ 1. Full closure syntax with types and return
+ 2. Types inferred from context - убраем тип
+ 3. Implicit return
+ 4. Shorthand argument names $0 , $1
+ 5. Trailing closure
+ All five results must match — verify this in code, not by eye.
+ */
+// 1
+let sort1 = validReadings.valid.sorted(by: { (a: Reading, b: Reading) -> Bool in
+    return a.value > b.value
+})
+print("sort1" , sort1)
+//[(sensor: "PRESS", value: 101), (sensor: "PRESS", value: 98), (sensor: "O2", value: 90), (sensor: "O2", value: 87), (sensor: "O2", value: 71), (sensor: "O2", value: 64), (sensor: "TEMP", value: 31), (sensor: "TEMP", value: 4), (sensor: "RAD", value: 3), (sensor: "TEMP", value: -12)]
+
+//2
+let sort2 = validReadings.valid.sorted(by: {(a,b) in
+    return a.value > b.value
+})
+print("sort2" , sort2)
+
+//3
+let sort3 = validReadings.valid.sorted(by: {(a,b) in
+    a.value > b.value
+})
+print("sort3" , sort3)
+
+//4
+let sort4 = validReadings.valid.sorted(by: {
+     $0.value > $1.value
+})
+print("sort4" , sort4)
+
+//5
+let sort5 = validReadings.valid.sorted {
+    $0.value > $1.value
+}
+print("sort5" , sort5)
 
 
 // MARK: Level 3 · Temperature Stabilization
