@@ -428,28 +428,70 @@ print(evacuationOrder("Nurlan", "Dana", roster: roster))
 // write fixed versions and a test that proves the logic bug is gone.
 
 /*
+ Проблемы в коде саботажника:
+ reportOxygen:
+ 1) member.module! - если у человека нет модуля (Nurlan, открытый космос) -> краш
+ 2) module.oxygenTank! - если у модуля нет бака (Dock, Dana) -> краш
+ 
+ firstCritical:
+ 3) oxygenLevel(of: member)! - oxygenLevel возвращает nil для Dana и Nurlan -> краш
+ 4) result! - если никто не критический, result = nil -> краш
+ 5) ЛОГИЧЕСКАЯ ОШИБКА: цикл не останавливается после первого найденного,
+    result перезаписывается каждый раз -> функция возвращает ПОСЛЕДНЕГО критического,
+    а не ПЕРВОГО. На стартовых данных не видно, потому что критический только
+    один (Aigerim).
+*/
+ 
 func reportOxygen(for member: CrewMember) -> String {
-    let tank = member.module!.oxygenTank!
+    guard let module = member.module else {
+        return "\(member.name): no module"
+    }
+    guard let tank = module.oxygenTank else {
+        return "\(member.name): no tank in \(module.name)"
+    }
     return "\(member.name): \(tank.level)%"
 }
-
-func firstCritical(in crew: [CrewMember]) -> String {
-    var result: String?
+ 
+func firstCritical(in crew: [CrewMember]) -> String? {
     for member in crew {
-        if oxygenLevel(of: member)! < 20 {
-            result = member.name
+        if let level = oxygenLevel(of: member), level < 20 {
+            return member.name
         }
     }
-    return result!
+    return nil
 }
-*/
+ 
+print("Level 5")
+for member in crew {
+    print(reportOxygen(for: member))
+}
+print(firstCritical(in: crew))
+//Timur: 40%
+//Dana: no tank in Dock
+//Aigerim: 12%
+//Nurlan: no module
+//Optional("Aigerim")
+ 
+
+let moduleA = Module(name: "ModA", oxygenTank: Tank(level: 5))
+let moduleB = Module(name: "ModB", oxygenTank: Tank(level: 10))
+let testCrew = [
+    CrewMember(name: "First", role: "Test", priority: 1, module: moduleA),
+    CrewMember(name: "Second", role: "Test", priority: 2, module: moduleB)
+]
+print(firstCritical(in: testCrew))
+//Optional("First")
+ 
+
+let emptyCrew: [CrewMember] = []
+print(firstCritical(in: emptyCrew))
+//nil
 
 
 // MARK: Finale · Launch Code
-
-// let launchCode = "\(A)-\(B)-\(C)-\(D)"
-// print("LAUNCH CODE: \(launchCode)")
-
+let launchCode = "\(A)-\(B)-\(C)-\(D)"
+print("LAUNCH CODE: \(launchCode)")
+//LAUNCH CODE: 6-78-6-42
 
 // MARK: Bonus
 
