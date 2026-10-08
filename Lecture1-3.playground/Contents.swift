@@ -308,22 +308,118 @@ if let tempStats = stats(of: tempValues) {
 print("C =", C)
 // 6
 
+
 // MARK: Level 4 · The Crew
 
+print("Level 4 - 4.1")
 // 4.1
-// func oxygenLevel(of member: CrewMember) -> Int? { }
+// optional chaining: member -> module? -> oxygenTank? -> level
+func oxygenLevel(of member: CrewMember) -> Int? {
+    return member.module?.oxygenTank?.level
+}
+for member in crew {
+    print(member.name, oxygenLevel(of: member))
+}
+//Timur Optional(40)
+//Dana nil
+//Aigerim Optional(12)
+//Nurlan nil
 
-// 4.2
-// func status(of member: CrewMember) -> String { }
+/* 4.2
+ 1)нет модуля -> open space
+ 2)есть модуль, но нет уровня -> no data (название модуля)
+ 3)уровень < 20 -> CRITICAL, иначе OK
+*/
+func status(of member: CrewMember) -> String {
+    guard let module = member.module else {
+        return "\(member.name): no data (open space)"
+    }
+    guard let level = oxygenLevel(of: member) else {
+        return "\(member.name): no data (\(module.name))"
+    }
+    let state = level < 20 ? "CRITICAL" : "OK"
+    return "\(member.name): \(level)% \(state)"
+}
+print("Level 4 - 4.2")
+for member in crew {
+    print(status(of: member))
+}
+//Timur: 40% OK
+//Dana: no data (Dock)
+//Aigerim: 12% CRITICAL
+//Nurlan: no data (open space)
+ 
 
-// 4.3
-// @discardableResult
-// func transferOxygen(from source: inout Int, to target: inout Int, amount: Int) -> Int { }
-
-// let D = ...
+/* 4.3
+ inout - меняем сами переменные, а не их копии
+ 1)amount < 0 -> ничего не делаем
+ 2)нельзя взять больше чем есть в source
+ 3)нельзя добавить больше чем влезает в target (макс 100)
+*/
+@discardableResult
+func transferOxygen(from source: inout Int, to target: inout Int, amount: Int) -> Int {
+    guard amount > 0 else { return 0 }
+    let canTake = min(amount, source)
+    let freeSpace = 100 - target
+    let moved = min(canTake, freeSpace)
+    guard moved > 0 else { return 0 }
+    source -= moved
+    target += moved
+    return moved
+}
+print("Level 4 - 4.3")
+var D = 0
+// tank optional, поэтому достаем через if let
+if let labTank = lab.oxygenTank, let habTank = hab.oxygenTank {
+    let moved = transferOxygen(from: &labTank.level, to: &habTank.level, amount: 30)
+    print("moved:", moved)
+    print("Lab:", labTank.level, "Hab:", habTank.level)
+    D = habTank.level
+}
+print("D =", D)
+//moved: 30
+//Lab: 10 Hab: 42
+//D = 42
+ 
+// тесты на граничные случаи
+var x1 = 50
+var y1 = 90
+print(transferOxygen(from: &x1, to: &y1, amount: 30), x1, y1)
+//10 40 100
+var x2 = 50
+var y2 = 20
+print(transferOxygen(from: &x2, to: &y2, amount: -5), x2, y2)
+//0 50 20
 
 // 4.4
-// func evacuationOrder(_ names: String..., roster: [String: CrewMember]) -> [String] { }
+/*
+ 1)идем по именам
+ 2)нет в roster -> пишем в консоль и continue
+ 3)сортируем найденных по priority
+*/
+func evacuationOrder(_ names: String..., roster: [String: CrewMember]) -> [String] {
+    var found: [CrewMember] = []
+    for name in names {
+        guard let member = roster[name] else {
+            print("Unknown crew member: \(name)")
+            continue
+        }
+        found.append(member)
+    }
+    let sortedCrew = found.sorted { $0.priority < $1.priority }
+    var order: [String] = []
+    for member in sortedCrew {
+        order.append(member.name)
+    }
+    return order
+}
+print("Level 4 - 4.4")
+print(evacuationOrder("Dana", "Ghost", "Aigerim", "Timur", roster: roster))
+print(evacuationOrder("Nurlan", "Dana", roster: roster))
+//Unknown crew member: Ghost
+//["Aigerim", "Timur", "Dana"]
+//["Nurlan", "Dana"]
+
 
 
 // MARK: Level 5 · The Saboteur's Logbook
