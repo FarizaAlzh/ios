@@ -89,32 +89,59 @@ print("ALMA-7 systems online: \(rawLog.count) log lines, \(crew.count) crew memb
 // MARK: Level 1 · Decoding Telemetry
 
 // 1.1
-//Reading? либо возвращает reading либо nill
-func parseReading(_ raw: String) -> Reading? {
-    guard let (left, right) = splitOnce(raw, by: ":"),
-          !left.isEmpty,
-          let value = Int(right),
-          value >= 0 || left == "TEMP" else{
-        return nil
-    }
-    return(sensor: left, value: value)
-}
+/*
+ it contains : +
+ the sensor name (left side) is not empty +
+ the value (right side) is an integer +
+ the value is >= 0 , except for the TEMP sensor (temperature can be negative) +
+ */
 
+func parseReading(_ raw: String) -> Reading? {            //переменна которая может принести нам либо знач/nil
+    guard let (sensorName, sensorValue) = splitOnce(raw, by: ":"),
+          !sensorName.isEmpty,
+          let value = (Int(sensorValue)),
+          value >= 0  || sensorName == "TEMP"
+    else { return nil }
+    return (sensorName,value)
+}
+print("Level 1 - 1.1")
 print(parseReading("O2:87"))
 print(parseReading("TEMP:-12"))
 print(parseReading("O2:9x"))
+print(parseReading("PRESS:101"))
+print(parseReading("TEMP:abc"))
+// выводит либо optional() or nil
 
+/* 1.2
+ Reading - контейнер с (sensor: String, value: Int)
+ 1)собрать все норм записи
+ 2)добавлять все инвалид нил записи
+*/
 
-// 1.2
-// func parseLog(_ lines: [String]) -> (valid: [Reading], invalidCount: Int) { }
+func parseLog(_ lines: [String]) -> (valid: [Reading], invalidCount: Int) {
+    var reading: [Reading] = []
+    var nilCount: Int = 0
+    for line in lines {
+        if let val = parseReading(line){
+            reading.append(val)
+        }
+        else{ nilCount += 1 }
+    }
+    return (reading, nilCount)
+}
+print("Level 1 - 1.2")
+print(parseLog(rawLog))
 
-// let A = ...
 
 
 // MARK: Level 2 · Analysis
 
-// 2.1
-// func select(_ readings: [Reading], where isIncluded: (Reading) -> Bool) -> [Reading] { }
+/*2.1
+*/
+
+func select(_ readings: [Reading], where isIncluded: (Reading) -> Bool) -> [Reading] {
+    return
+}
 // func values(of readings: [Reading]) -> [Int] { }
 
 // 2.2
