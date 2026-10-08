@@ -495,25 +495,56 @@ print("LAUNCH CODE: \(launchCode)")
 
 // MARK: Bonus
 
-// func makeAlarm(threshold: Int) -> (Int) -> Bool { }
+func makeAlarm(threshold: Int) -> (Int) -> Bool {
+    var count = 0
+    return { level in
+        if level < threshold {
+            count += 1
+            print("Alarm #\(count)")
+            return true
+        }
+        return false
+    }
+}
+print("Bonus")
+let alarm = makeAlarm(threshold: 20)
+print(alarm(12))
+print(alarm(40))
+print(alarm(5))
+//Alarm #1
+//true
+//false
+//Alarm #2
+//true
 
 
 // MARK: - ================= DEFENSE QUESTIONS =================
+
 /*
  1. guard let vs if let beyond syntax:
+ guard let сразу выходит из функции если значения нет
+ if let работает только внутри своего блока. Поэтому с guard код получается проще и без вложенных if
 
  2. Why can't you pass [Int] to stats(_ values: Int...)?
+ Variadic принимает значения через запятую например stats(1, 2, 3)
+ Если у нас уже есть массив то его нельзя просто передать туда. Поэтому нужна отдельная функция для массива
 
  3. Why doesn't transferOxygen(from: &x, to: &x, amount: 5) compile?
+ Нельзя использовать одну переменную два раза как inout одновременно
+ Swift не разрешает два доступа к одной переменной в один момент
 
  4. Why doesn't oxygenLevel(of: dana) ?? "no data" compile?
+ oxygenLevel возвращает Int? а "no data" это String
+ Поэтому типы не совпадают. После ?? тоже должен быть Int
 
  5. Full type of chooseProtocol and how to read it:
+ (Int) -> (Int) -> Int
+
+ Эта функция принимает Int и возвращает другую функцию
+ Например chooseProtocol(for: 20) вернет heatUp или coolDown или hold
 
  Bonus. Where does the alarm counter live after makeAlarm returns?
+ count сохраняется внутри closure потому что closure его захватывает
+ Поэтому после makeAlarm count не исчезает и продолжает хранить свое значение
 
 */
-
-
-
-
