@@ -131,6 +131,7 @@ func parseLog(_ lines: [String]) -> (valid: [Reading], invalidCount: Int) {
 }
 print("Level 1 - 1.2")
 print(parseLog(rawLog))
+//(valid: [(sensor: "O2", value: 87), (sensor: "TEMP", value: -12), (sensor: "PRESS", value: 101), (sensor: "RAD", value: 3), (sensor: "O2", value: 64), (sensor: "TEMP", value: 31), (sensor: "PRESS", value: 98), (sensor: "O2", value: 71), (sensor: "TEMP", value: 4), (sensor: "O2", value: 90)], invalidCount: 6)
 
 
 
@@ -155,6 +156,7 @@ let validReadings = parseLog(rawLog)
 let o2Readings = select(validReadings.valid) { $0.sensor == "O2" }
 print("Level 2 - 2.1")
 print(o2Readings)
+//[87, 64, 71, 90]
 
 func values(of readings: [Reading]) -> [Int] {
     var intValues: [Int] = []
@@ -168,11 +170,40 @@ func values(of readings: [Reading]) -> [Int] {
 let o2Values = values(of: o2Readings)
 print(o2Values)
 
-// 2.2
-// func stats(of values: [Int]) -> (min: Int, max: Int, average: Double)? { }
-// func stats(_ values: Int...) -> (min: Int, max: Int, average: Double)? { }
+/*2.2
+1)работаем с 1 функ
+*/
+func stats(of values: [Int]) -> (min: Int, max: Int, average: Double)? {
+    guard !values.isEmpty else { return nil }
+    var currentMin = values[0]
+    var currentMax = values[0]
+    var total = 0
+    for value in values {
+        total += value
+        if value < currentMin { currentMin = value }
+        if value > currentMax { currentMax = value }
+        
+    }
+    let average = Double(total) / Double(values.count)
+    return (currentMin, currentMax, average)
+    
+}
+print("Level 2 - 2.2")
+print(stats(of: o2Values))
+print(stats(2,5,7,4))
+//Optional((min: 64, max: 90, average: 78.0))
+//Optional((min: 2, max: 7, average: 4.5))
 
-// let B = ...
+
+func stats(_ values: Int...) -> (min: Int, max: Int, average: Double)? {
+    stats(of: values)
+}
+let B = [3,6,7,8]
+print(stats(of: B))
+print(stats())
+//Optional((min: 3, max: 8, average: 6.0))
+//nil
+
 
 // 2.3 · The Closure Ladder (5 sorts, then compare results in code)
 
