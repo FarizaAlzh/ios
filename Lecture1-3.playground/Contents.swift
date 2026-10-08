@@ -137,12 +137,36 @@ print(parseLog(rawLog))
 // MARK: Level 2 · Analysis
 
 /*2.1
+1)The select call must use a trailing closure and $0
+2)нужно прописать так чтобы селект читал ридингс по одному как массив и обределяла тру/фолс и потом сохраняла все тру в массив
+3)$0 это первое значение в массиве
 */
 
 func select(_ readings: [Reading], where isIncluded: (Reading) -> Bool) -> [Reading] {
-    return
+    var result: [Reading] = []
+    for reading in readings {
+        if isIncluded(reading) {
+            result.append(reading)
+        }
+    }
+    return result
 }
-// func values(of readings: [Reading]) -> [Int] { }
+let validReadings = parseLog(rawLog)
+let o2Readings = select(validReadings.valid) { $0.sensor == "O2" }
+print("Level 2 - 2.1")
+print(o2Readings)
+
+func values(of readings: [Reading]) -> [Int] {
+    var intValues: [Int] = []
+    for reading in readings {
+        intValues.append(reading.value)
+    }
+    return intValues
+    
+}
+
+let o2Values = values(of: o2Readings)
+print(o2Values)
 
 // 2.2
 // func stats(of values: [Int]) -> (min: Int, max: Int, average: Double)? { }
