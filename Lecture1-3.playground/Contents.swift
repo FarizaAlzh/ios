@@ -132,7 +132,8 @@ func parseLog(_ lines: [String]) -> (valid: [Reading], invalidCount: Int) {
 print("Level 1 - 1.2")
 print(parseLog(rawLog))
 //(valid: [(sensor: "O2", value: 87), (sensor: "TEMP", value: -12), (sensor: "PRESS", value: 101), (sensor: "RAD", value: 3), (sensor: "O2", value: 64), (sensor: "TEMP", value: 31), (sensor: "PRESS", value: 98), (sensor: "O2", value: 71), (sensor: "TEMP", value: 4), (sensor: "O2", value: 90)], invalidCount: 6)
-
+let A = parseLog(rawLog).invalidCount
+print(A)
 
 
 // MARK: Level 2 · Analysis
@@ -197,10 +198,9 @@ print(stats(of: o2Values))
 func stats(_ values: Int...) -> (min: Int, max: Int, average: Double)? {
     stats(of: values)
 }
-let B = [3,6,7,8]
-print(stats(of: B))
+let B = Int(stats(of: o2Values)?.average ?? 0)
+print(B)
 print(stats())
-//Optional((min: 3, max: 8, average: 6.0))
 //nil
 
 
@@ -218,6 +218,7 @@ print(stats())
 let sort1 = validReadings.valid.sorted(by: { (a: Reading, b: Reading) -> Bool in
     return a.value > b.value
 })
+print("Level 2 - 2.3")
 print("sort1" , sort1)
 //[(sensor: "PRESS", value: 101), (sensor: "PRESS", value: 98), (sensor: "O2", value: 90), (sensor: "O2", value: 87), (sensor: "O2", value: 71), (sensor: "O2", value: 64), (sensor: "TEMP", value: 31), (sensor: "TEMP", value: 4), (sensor: "RAD", value: 3), (sensor: "TEMP", value: -12)]
 
@@ -247,18 +248,65 @@ print("sort5" , sort5)
 
 
 // MARK: Level 3 · Temperature Stabilization
-
+print("Level 3 - 3.1")
 // 3.1
-// func heatUp(_ t: Int) -> Int { }
-// func coolDown(_ t: Int) -> Int { }
-// func hold(_ t: Int) -> Int { }
-// func chooseProtocol(for temp: Int) -> (Int) -> Int { }
+func heatUp(_ t: Int) -> Int {
+    return t + 5
+}
+func coolDown(_ t: Int) -> Int {
+    return t - 3
+}
+func hold(_ t: Int) -> Int {
+    return t
+}
+//fucn которая возращает функцию
+//Below 18 → heatUp, above 24 → coolDown , otherwise → hold
+func chooseProtocol(for temp: Int) -> (Int) -> Int {
+    if temp < 18 { return heatUp }
+    else if temp > 24 { return coolDown }
+    else { return hold }
+}
+
+let temp1 = chooseProtocol(for: 20)
+print(temp1(20))
+
 
 // 3.2
-// func runUntilStable(from start: Int, maxSteps: Int = 10) -> (finalTemp: Int, steps: Int, isStable: Bool) { }
-
-// let C = ...
-
+/*
+ пока темп вне диапазона 18...24 и шагов меньше maxSteps:
+ 1)выбираем протокол через chooseProtocol
+ 2)применяем к темп
+ 3)шаг +1
+*/
+func runUntilStable(from start: Int, maxSteps: Int = 10) -> (finalTemp: Int, steps: Int, isStable: Bool) {
+    var temp = start
+    var steps = 0
+    while (temp < 18 || temp > 24) && steps < maxSteps {
+        let action = chooseProtocol(for: temp)
+        temp = action(temp)
+        steps += 1
+    }
+    let stable = temp >= 18 && temp <= 24
+    return (temp, steps, stable)
+}
+print("Level 3 - 3.2")
+print(runUntilStable(from: 31))
+print(runUntilStable(from: -100, maxSteps: 5))
+//(finalTemp: 22, steps: 3, isStable: true)
+//(finalTemp: -75, steps: 5, isStable: false)
+ 
+// C = steps для самой низкой валидной температуры из лога
+let tempReadings = select(validReadings.valid) { $0.sensor == "TEMP" }
+let tempValues = values(of: tempReadings)
+print(tempValues)
+//[-12, 31, 4]
+ 
+var C = 0
+if let tempStats = stats(of: tempValues) {
+    C = runUntilStable(from: tempStats.min).steps
+}
+print("C =", C)
+// 6
 
 // MARK: Level 4 · The Crew
 
@@ -327,7 +375,6 @@ func firstCritical(in crew: [CrewMember]) -> String {
  Bonus. Where does the alarm counter live after makeAlarm returns?
 
 */
-
 
 
 
