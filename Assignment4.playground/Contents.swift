@@ -181,20 +181,133 @@ print(parseEntry("???-corrupted-line"))         // unknown(raw: "???-corrupted-l
 
 
 // 2.3
-// func mass(of entry: ManifestEntry) -> Int { }
+func mass(of entry: ManifestEntry) -> Int {
+    switch entry {
+    case .crate(_, let massKg):
+        return massKg
+    case .container(_, let massKg):
+        return massKg
+    case .livestock(_, let count, let massPerUnitKg):
+        return count * massPerUnitKg
+    case .unknown:
+        return 0
+    }
+}
 
-// let A = ...
+print("Level 2 - 2.3")
+var manifestMass = 0
+var unknownLines = 0
+for line in rawManifest {
+    let entry = parseEntry(line)
+    manifestMass += mass(of: entry)
+    if case .unknown = entry {
+        unknownLines += 1
+    }
+}
+let A = manifestMass
+print("A:" ,A)
+print("unknownLines:" ,unknownLines)
 
 
 // MARK: Level 3 · Crew Snapshots
 
 // 3.1
-// struct CrewSnapshot { }
+struct CrewSnapshot {
+    let name: String
+    var deck: Deck
+    var oxygen: Int
+
+    mutating func breathe(amount: Int) { // уменьшаем кислород
+        oxygen = max(0, oxygen - amount)
+    }
+    
+    mutating func move(to deck: Deck) { // меняем палубу
+        self.deck = deck
+    }
+
+    mutating func reviveInMedbay() {
+        self = CrewSnapshot(name: name, deck: .medbay, oxygen: 100) // атаморно/мгновенно приписываем новое знач
+    }
+
+    static func rookie(named name: String) -> CrewSnapshot {
+        return CrewSnapshot(name: name, deck: .bridge, oxygen: 100)
+    }
+}
+var rookieCrew = CrewSnapshot.rookie(named: "Fariza")
+print(rookieCrew)
+rookieCrew.breathe(amount: 67)
+print(rookieCrew)
+rookieCrew.move(to: .lab)
+print(rookieCrew)
+rookieCrew.reviveInMedbay()
+print(rookieCrew)
+/*
+ CrewSnapshot(name: "Fariza", deck: __lldb_expr_1575.Deck.bridge, oxygen: 100)
+ CrewSnapshot(name: "Fariza", deck: __lldb_expr_1575.Deck.bridge, oxygen: 33)
+ CrewSnapshot(name: "Fariza", deck: __lldb_expr_1575.Deck.lab, oxygen: 33)
+ CrewSnapshot(name: "Fariza", deck: __lldb_expr_1575.Deck.medbay, oxygen: 100)
+ */
+
+
 
 // 3.2
-// let crewRoster: [CrewSnapshot] = ...
+var builtRoster: [CrewSnapshot] = []
+for record in crewData {
+    if let deck = Deck(rawValue: record.deck) {
+        builtRoster.append(CrewSnapshot(name: record.name, deck: deck, oxygen: record.oxygen))
+    } else {
+        print("warning: skipped", record.name)
+    }
+}
+let crewRoster = builtRoster
+
+print("Level 3 - 3.2")
+print("roster:", crewRoster.count)
+
 
 // 3.3 · Value-semantics demonstration (copy / plain parameter / inout)
+//1
+var origSnapshot = CrewSnapshot.rookie(named: "Arman")
+var copySnapshot = origSnapshot
+print("Level 3 - 3.3")
+print("Before copy modification:")
+print(origSnapshot)
+print(copySnapshot)
+
+copySnapshot.breathe(amount: 25)
+
+print("After copy modification:")
+print(origSnapshot)
+print(copySnapshot)
+
+//2
+func modifySnapshot(_ snapshot: CrewSnapshot) {
+    var tempCopy = snapshot
+    
+    tempCopy.breathe(amount: 50)
+    tempCopy.move(to: .cargo)
+}
+
+var orig2 = CrewSnapshot.rookie(named: "Arai")
+print("Before plain function: \(orig2)")
+
+modifySnapshot(orig2)
+
+print("After plain function:  \(orig2)")
+
+//3
+func modifyInout(_ snapshot: inout CrewSnapshot) {
+    snapshot.breathe(amount: 50)
+    snapshot.move(to: .cargo)
+}
+
+var orig3 = CrewSnapshot.rookie(named: "Sanzhar")
+print("Before: \(orig3)")
+
+//есть вопрос если& не будет
+modifyInout(&orig3)
+
+print("After: \(orig3)")
 
 
 // MARK: Level 4 · The Teleport Pod
