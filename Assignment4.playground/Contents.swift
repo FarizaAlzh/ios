@@ -81,10 +81,53 @@ print("ALMA-7 recorder online: \(rawManifest.count) manifest lines, \(deckReadin
 // MARK: Level 1 · The Deck Register
 
 // 1.1
-// enum Deck: String, CaseIterable { }
+enum Deck: String, CaseIterable {
+    case bridge
+    case medbay
+    case lab
+    case engine
+    case cargo
+    
+    var evacuationPriority: Int {
+        switch self {
+        case .bridge:
+            return 1
+        case .medbay:
+            return 2
+        case .lab:
+            return 3
+        case .engine:
+            return 4
+        case .cargo:
+            return 5
+        }
+    }
+}
+print("Level 1 - 1.1")
+print(Deck.bridge.rawValue)
 
 // 1.2
-// enum AlarmLevel: Int { }
+enum AlarmLevel: Int {
+    case green = 0
+    case yellow
+    case orange
+    case red
+    
+    static func level(forTotalMass mass : Int) -> AlarmLevel {
+        let raise = mass / 500
+        let step = min(raise, 3)
+        
+        return AlarmLevel(rawValue: raise) ?? .red
+    }
+}
+
+//The rule: every full 500 kg raises the alarm one step, and anything at or above 1500 kg is red. Build the result from
+//AlarmLevel(rawValue:) — do not write a chain of if s comparing masses.
+
+print("Level 1 - 1.2")
+print(AlarmLevel.level(forTotalMass: 0))
+print(AlarmLevel.level(forTotalMass: 940)) // yellow
+print(AlarmLevel.level(forTotalMass: 4000)) // red
 
 
 // MARK: Level 2 · The Manifest
