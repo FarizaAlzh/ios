@@ -133,10 +133,52 @@ print(AlarmLevel.level(forTotalMass: 4000)) // red
 // MARK: Level 2 · The Manifest
 
 // 2.1
-// enum ManifestEntry { }
+enum ManifestEntry {
+    case crate(id: Int, massKg: Int)
+    case container(code: String, massKg: Int)
+    case livestock(species: String, count: Int, massPerUnitKg: Int)
+    case unknown(raw: String)
 
-// 2.2
-// func parseEntry(_ line: String) -> ManifestEntry { }
+}
+
+func parseEntry(_ line: String) -> ManifestEntry {
+    let parts = fields(line)
+    
+switch parts[0] {
+    case "crate":
+        guard parts.count == 3,
+            let id = Int(parts[1]),
+            let massKg = Int(parts[2])
+                else { return .unknown(raw: line) }
+        return .crate(id: id, massKg: massKg)
+        
+    case "container":
+        guard parts.count == 3,
+            let massKg = Int(parts[2])
+                else { return .unknown(raw: line) }
+        return .container(code: parts[1], massKg: massKg)
+        
+    case "livestock":
+        guard parts.count == 4,
+            let count = Int(parts[2]),
+            let massPerUnitKg = Int(parts[3])
+                else { return .unknown(raw: line) }
+    return .livestock(species: parts[1], count: count, massPerUnitKg: massPerUnitKg)
+    
+    default:
+        return .unknown(raw: line)
+        
+    }
+}
+
+print("Level 2 - 2.1 / 2.2 ")
+print(parseEntry("crate:101:120"))              // crate(id: 101, massKg: 120)
+print(parseEntry("container:KZ-ALM-7:340"))     // container(code: "KZ-ALM-7", massKg: 340)
+print(parseEntry("livestock:lab mice:12:2"))    // livestock(species: "lab mice", count: 12, massPerUnitKg: 2)
+print(parseEntry("???-corrupted-line"))         // unknown(raw: "???-corrupted-line")
+
+
+
 
 // 2.3
 // func mass(of entry: ManifestEntry) -> Int { }
