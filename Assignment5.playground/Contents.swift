@@ -325,23 +325,91 @@ print("Diagnostics before beacon:")
 print(diagnosticsReport(diagnosticsComponents))
 
 
+
 // MARK: Level 5 · Shared Behaviour
 
 // 5.1 · default diagnose() + the single home of the Health Rule
-// extension Diagnosable { }
+extension Diagnosable {
+    func healthStatus(for level: Int) -> Int {
+        if level < 20 {
+            return 2
+        }
+
+        if level < 50 {
+            return 1
+        }
+
+        return 0
+    }
+
+    func diagnose() -> String {
+        return "\(componentID): code \(statusCode)"
+    }
+}
 
 // 5.2 · the beacon you cannot edit
-// extension LegacyBeacon: Diagnosable { }
+extension LegacyBeacon: Diagnosable {
+    var componentID: String {
+        return name
+    }
 
-// let D = ...
+    var statusCode: Int {
+        return healthStatus(for: signalStrength)
+    }
+
+    func diagnose() -> String {
+        return "\(componentID): LEGACY BEACON code \(statusCode)"
+    }
+}
+
+diagnosticsComponents.append(beacon)
+
+print("Diagnostics with beacon:")
+print(diagnosticsReport(diagnosticsComponents))
+
+var statusTotal = 0
+for component in diagnosticsComponents {
+    statusTotal += component.statusCode
+}
+let D = statusTotal
+print("D =", D)
 
 // 5.3
-// extension Int { }
+extension Int {
+    var powerBar: String {
+        var filled = self / 10
+
+        if filled < 0 {
+            filled = 0
+        }
+
+        if filled > 10 {
+            filled = 10
+        }
+
+        var result = ""
+        var position = 0
+
+        while position < 10 {
+            if position < filled {
+                result += "#"
+            } else {
+                result += "."
+            }
+            position += 1
+        }
+
+        return result
+    }
+}
+
+print("Power bar 42:", 42.powerBar)
+print("Power bar -5:", (-5).powerBar)
+print("Power bar 250:", 250.powerBar)
 
 
 // MARK: Level 6 · Incident Reports
-// Two of these do not compile. Two compile and lie.
-// For each: expectation, actual behaviour, the language rule, the fix.
+// The original reports from the starter file stay commented out because some of them do not compile.
 
 /*
 // Report 1
@@ -381,29 +449,90 @@ let parts: [Labelled] = [Thruster(componentID: "T-1")]
 print(parts[0].label())
 */
 
+// Report 1
+// Expected: PatchDrone should replace performTask() and produce 30 work units.
+// Actual: it does not compile because performTask() already comes from Drone.
+// Rule: when a subclass replaces an inherited method, Swift requires the override keyword.
+// Fix:
+class PatchDrone: Drone {
+    override func performTask() -> Int {
+        return 30
+    }
+}
+
+// Report 2
+// Expected: HeavyWelder should inherit from WelderDrone and replace runOnce().
+// Actual: it does not compile. WelderDrone is final, and runOnce() is final too.
+// Rule: a final class cannot be subclassed, and a final method cannot be overridden.
+// Fix: inherit from Drone and change the work, but keep the protected runOnce() routine.
+final class HeavyWelder: Drone {
+    override func performTask() -> Int {
+        return 999
+    }
+}
+
+// Report 3
+// Expected: first is really a WelderDrone, so the author tried to call weldSeam().
+// Actual: it does not compile because first has the declared type Drone, and Drone has no weldSeam().
+// Rule: through a Drone reference, the compiler only exposes members declared on Drone.
+// Fix: ask at runtime whether the object is a WelderDrone.
+let reportFleetFixed: [Drone] = [WelderDrone(id: "W-9", cell: PowerCell(charge: 100))]
+let firstFixed = reportFleetFixed[0]
+
+if let welder = firstFixed as? WelderDrone {
+    print(welder.weldSeam())
+}
+// as? returns an optional because the runtime check can fail when the object is not a WelderDrone.
+
+// Report 4
+// Expected: the Thruster implementation should print "thruster T-1".
+// Actual: in the original code it prints "generic component".
+// Rule: label() was only in the protocol extension, not in the protocol requirements, so a Labelled value uses the extension version.
+// Fix: make label() a protocol requirement. The extension can still provide a default implementation.
+protocol Labelled {
+    var componentID: String { get }
+    func label() -> String
+}
+
+extension Labelled {
+    func label() -> String {
+        return "generic component"
+    }
+}
+
+struct Thruster: Labelled {
+    let componentID: String
+
+    func label() -> String {
+        return "thruster \(componentID)"
+    }
+}
+
+let partsFixed: [Labelled] = [Thruster(componentID: "T-1")]
+print(partsFixed[0].label())
+
 
 // MARK: Finale · Mission Code
 
-// let missionCode = "\(A)-\(B)-\(C)-\(D)"
-// print("MISSION CODE: \(missionCode)")
-
-
-// MARK: Bonus
-
-// Two ways to forbid using Drone directly; a protocol-based redesign;
-// two or three sentences comparing them.
-
+let missionCode = "\(A)-\(B)-\(C)-\(D)"
+print("MISSION CODE: \(missionCode)")
 
 // MARK: - ================= DEFENSE QUESTIONS =================
 /*
  1. Why does a class satisfy a `mutating` protocol requirement without the
     keyword, while a struct must write it?
+ because classes are reference types and mutate in place automatically, whereas structs are value types
+ and require explicit `mutating` to allow modification of self
 
  2. One thing inheritance does that protocols cannot, and one thing
     protocols do that inheritance cannot:
+ inheritance allows sharing stored properties and base implementation, while protocols can adopt multiple types (classes and structs) simultaneously
 
  3. What does `final` prevent, and what did it protect in runOnce()?
+ `final` prevents overriding by subclasses. In runOnce(), it protected the core shift logic from being accidentally or maliciously altered by drone subclasses
 
  4. In Report 4, why did the protocol extension's method win?
+ because when called through a protocol type variable, non-requirement extension methods are statically dispatched
+ based on the variable's declared type, not the underlying instance type
 
 */
