@@ -20,7 +20,8 @@ Ten favorites in total. Each has an image, a title and a description (calories p
 
 
 ### Home Screen with icon
-<img width="1024" height="1024" alt="icon" src="https://github.com/user-attachments/assets/590254f3-ef89-465e-bb16-ab7eef933d9a" />
+<img width="255" height="255" alt="icon" src="https://github.com/user-attachments/assets/618925ec-4991-48bf-a845-53cad57ae6e4" />
+
 
 
 ## Run
