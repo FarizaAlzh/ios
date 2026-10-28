@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var followingCountLabel: UILabel!
     @IBOutlet weak var followingTitleLabel: UILabel!
     
-    
+    @IBOutlet weak var aboutLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -40,6 +40,7 @@ class ViewController: UIViewController {
         followersTitleLabel.text = "Followers"
         followingCountLabel.text = "162"
         followingTitleLabel.text = "Following"
+        aboutLabel.text = "Information Systems student who loves learning, exploring new opportunities and challenging myself. Interested in technology, creativity and finding new ways to solve problems"
     }
 
 

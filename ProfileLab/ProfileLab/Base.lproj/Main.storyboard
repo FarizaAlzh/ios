@@ -16,13 +16,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xyz-fa-Ud2">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xyz-fa-Ud2" userLabel="Avatar">
                                 <rect key="frame" x="167" y="138" width="96" height="96"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AF" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ZW-xK-YZV">
                                         <rect key="frame" x="24.666666666666654" y="26.666666666666657" width="46.666666666666657" height="43"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                                        <color key="textColor" red="0.2213209867477417" green="0.18700769543647766" blue="0.66455322504043579" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.2196078431372549" green="0.18823529411764706" blue="0.66274509803921566" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -51,7 +51,7 @@
                                 <color key="textColor" red="0.43137254901960786" green="0.43137254901960786" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wpD-LF-vtS">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wpD-LF-vtS" userLabel="Card">
                                 <rect key="frame" x="16" y="336" width="398" height="90"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9an-pa-etq" userLabel="1_Posts">
@@ -169,29 +169,104 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUN-sV-Bd8" userLabel="FollowButton">
+                                <rect key="frame" x="16" y="442" width="193" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="RPH-zR-sf0"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Follow">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="17"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" red="0.2196078431372549" green="0.18823529411764706" blue="0.66274509803921566" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kX9-qg-o82" userLabel="MessageButton">
+                                <rect key="frame" x="221" y="442" width="193" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="LYN-Qd-cst"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Message">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="17"/>
+                                    <color key="baseForegroundColor" red="0.21960784310000001" green="0.18823529410000001" blue="0.66274509800000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseBackgroundColor" red="0.87951665417311042" green="0.88759894187158173" blue="0.96708716299019604" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKW-OP-xkZ" userLabel="About">
+                                <rect key="frame" x="16" y="520" width="398" height="59.333333333333371"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ABOUT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tvf-2o-OsY" userLabel="AboutTitle">
+                                        <rect key="frame" x="16" y="15" width="54" height="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="textColor" red="0.43137254899999999" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="highlightedColor" red="0.43137254899999999" green="0.43137254899999999" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQ4-sB-0TF" userLabel="AboutLabel">
+                                        <rect key="frame" x="178" y="39" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Tvf-2o-OsY" firstAttribute="top" secondItem="cKW-OP-xkZ" secondAttribute="top" constant="15" id="0hi-Rr-ppP"/>
+                                    <constraint firstItem="nQ4-sB-0TF" firstAttribute="leading" secondItem="cKW-OP-xkZ" secondAttribute="leading" constant="16" id="2dk-A3-lN1"/>
+                                    <constraint firstItem="Tvf-2o-OsY" firstAttribute="leading" secondItem="cKW-OP-xkZ" secondAttribute="leading" constant="16" id="NJ8-WT-zoB"/>
+                                    <constraint firstItem="nQ4-sB-0TF" firstAttribute="top" secondItem="Tvf-2o-OsY" secondAttribute="top" constant="8" id="bSc-Nq-iL4"/>
+                                    <constraint firstAttribute="bottom" secondItem="nQ4-sB-0TF" secondAttribute="bottom" constant="16" id="ulB-Rg-vTa"/>
+                                    <constraint firstAttribute="trailing" secondItem="nQ4-sB-0TF" secondAttribute="trailing" constant="16" id="zfg-AR-Yce"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cKW-OP-xkZ" secondAttribute="trailing" constant="16" id="0SV-69-Aqx"/>
+                            <constraint firstItem="cUN-sV-Bd8" firstAttribute="top" secondItem="wpD-LF-vtS" secondAttribute="bottom" constant="16" id="3dP-to-jad"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wpD-LF-vtS" secondAttribute="trailing" constant="16" id="3dQ-VH-Zbh"/>
                             <constraint firstItem="lYf-wU-dMx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="AT4-QE-a4F"/>
                             <constraint firstItem="iyu-bJ-KPw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="CsR-vh-23m"/>
                             <constraint firstItem="xyz-fa-Ud2" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="MZM-Cx-294"/>
+                            <constraint firstItem="cKW-OP-xkZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="O12-Ki-mnr"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lYf-wU-dMx" secondAttribute="trailing" constant="16" id="Omo-bp-Ia6"/>
                             <constraint firstItem="iyu-bJ-KPw" firstAttribute="top" secondItem="lYf-wU-dMx" secondAttribute="bottom" constant="4" id="SPR-sD-HWM"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kX9-qg-o82" secondAttribute="trailing" constant="16" id="Tf3-el-MKH"/>
+                            <constraint firstItem="kX9-qg-o82" firstAttribute="leading" secondItem="cUN-sV-Bd8" secondAttribute="trailing" constant="12" id="Vul-6M-pDg"/>
                             <constraint firstItem="lYf-wU-dMx" firstAttribute="top" secondItem="xyz-fa-Ud2" secondAttribute="bottom" constant="16" id="XwP-Bd-Uc5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iyu-bJ-KPw" secondAttribute="trailing" constant="16" id="YAh-fQ-V2i"/>
+                            <constraint firstItem="cUN-sV-Bd8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="dvn-6I-9fb"/>
+                            <constraint firstItem="kX9-qg-o82" firstAttribute="width" secondItem="cUN-sV-Bd8" secondAttribute="width" id="g8N-Ij-zcf"/>
+                            <constraint firstItem="cKW-OP-xkZ" firstAttribute="top" secondItem="cUN-sV-Bd8" secondAttribute="bottom" constant="30" id="iQk-5m-lXF"/>
+                            <constraint firstItem="kX9-qg-o82" firstAttribute="top" secondItem="wpD-LF-vtS" secondAttribute="bottom" constant="16" id="lgo-YL-DsJ"/>
                             <constraint firstItem="xyz-fa-Ud2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="sqq-JW-amZ"/>
                             <constraint firstItem="wpD-LF-vtS" firstAttribute="top" secondItem="iyu-bJ-KPw" secondAttribute="top" constant="46" id="uh7-Mo-a9i"/>
                             <constraint firstItem="wpD-LF-vtS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="z11-jU-980"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="50"/>
+                                <integer key="value" value="10"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
+                        <outlet property="aboutLabel" destination="nQ4-sB-0TF" id="qcY-Bd-hPm"/>
                         <outlet property="avatarLabel" destination="2ZW-xK-YZV" id="RVP-DT-VpA"/>
                         <outlet property="followersCountLabel" destination="MCC-Hc-ZhG" id="hh7-tK-Ccv"/>
                         <outlet property="followersTitleLabel" destination="ibp-XF-yfw" id="Vq2-sb-nt8"/>
