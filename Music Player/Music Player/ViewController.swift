@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, AVAudioPlayerDelegate {
     
     @IBOutlet weak var coverImageView: UIImageView!
     
@@ -25,6 +25,9 @@ class ViewController: UIViewController {
     
     @IBAction func prevTapped(_ sender: Any) {
         print("Previous нажата")
+        let count = TrackLibrary.tracks.count
+        currentIndex = (currentIndex - 1 + count) % count
+        changeTrack()
     }
     
     @IBAction func playPauseTapped(_ sender: Any) {
@@ -45,6 +48,29 @@ class ViewController: UIViewController {
     
     @IBAction func nextTapped(_ sender: Any) {
         print("nextTapped нажата")
+        goToNextTrack()
+    }
+    
+    private func goToNextTrack(){
+        currentIndex = (currentIndex + 1) % TrackLibrary.tracks.count
+        changeTrack()
+    }
+    
+    private func changeTrack(){
+        let wasPlaying = isPlaying
+        loadTrack(at: currentIndex)
+        
+        if wasPlaying, let player = player{
+            player.play()
+            isPlaying = true
+        } else { isPlaying = false }
+        
+        updateUI()
+            
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player : AVAudioPlayer, successfully flag: Bool){
+        goToNextTrack()
     }
     
     
@@ -55,6 +81,7 @@ class ViewController: UIViewController {
     }
     
     private func loadTrack(at index : Int){
+        player = nil
         let track = TrackLibrary.tracks[index]
         
         guard let url = Bundle.main.url(forResource: track.fileName, withExtension: "mp3")
@@ -63,6 +90,7 @@ class ViewController: UIViewController {
         
         do {
             player = try AVAudioPlayer(contentsOf : url)
+            player?.delegate = self
             player?.prepareToPlay()
         } catch {
             print("Error loading audio: \(error)")
