@@ -6,13 +6,13 @@ The screen shows the track cover, title, artist, and Previous / Play-Pause / Nex
 ## Screenshots
 
 ### iPhone 16 Pro Max
-<img width="280" height="569" alt="iPhone 16 Pro Max" src="LINK_TO_IMAGE">
+<img width="281" height="587" alt="iPhone 16 Pro Max" src="https://github.com/user-attachments/assets/60b47b7a-f7be-4fcb-99b9-21cf48cbdb7b" />
 
 ### iPhone SE (3rd generation)
-<img width="294" height="606" alt="iPhone SE" src="LINK_TO_IMAGE">
+<img width="306" height="607" alt="iPhone SE" src="https://github.com/user-attachments/assets/f935c7f5-0809-4386-8ff3-b64f3618c002" />
 
 ### Demo
-https://github.com/user-attachments/assets/LINK_TO_VIDEO
+https://github.com/user-attachments/assets/8e391a75-1a3b-4d30-b718-9096954fb62f
 
 ## Features
 
