@@ -63,4 +63,4 @@ The 20 items are stored in one array, `favoriteItems`, in `FavoriteData.swift`. 
 
 ## Author
 
-Fariza, Lab 9 Assignment: UITableView & Custom Cells<img width="283" height="588" alt="Снимок экрана 2026-11-18 в 18 06 43" src="https://github.com/user-attachments/assets/c067c5e0-dd25-49ab-978c-3f3bb3e774e1" />
+Fariza, Lab 9 Assignment: UITableView & Custom Cells
