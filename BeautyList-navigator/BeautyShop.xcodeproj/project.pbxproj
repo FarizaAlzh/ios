@@ -7,17 +7,16 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		D4DD9DF330A82B1F0021F0BA /* BeautyList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeautyList.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4DD9DF330A82B1F0021F0BA /* BeautyShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeautyShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		D4DD9E0530A82B210021F0BA /* Exceptions for "BeautyList" folder in "BeautyList" target */ = {
+		D4DD9E0530A82B210021F0BA /* Exceptions for "BeautyList" folder in "BeautyShop" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
-				Untitled.swift,
 			);
-			target = D4DD9DF230A82B1F0021F0BA /* BeautyList */;
+			target = D4DD9DF230A82B1F0021F0BA /* BeautyShop */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -25,7 +24,7 @@
 		D4DD9DF530A82B1F0021F0BA /* BeautyList */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				D4DD9E0530A82B210021F0BA /* Exceptions for "BeautyList" folder in "BeautyList" target */,
+				D4DD9E0530A82B210021F0BA /* Exceptions for "BeautyList" folder in "BeautyShop" target */,
 			);
 			path = BeautyList;
 			sourceTree = "<group>";
@@ -54,7 +53,7 @@
 		D4DD9DF430A82B1F0021F0BA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D4DD9DF330A82B1F0021F0BA /* BeautyList.app */,
+				D4DD9DF330A82B1F0021F0BA /* BeautyShop.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -62,9 +61,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D4DD9DF230A82B1F0021F0BA /* BeautyList */ = {
+		D4DD9DF230A82B1F0021F0BA /* BeautyShop */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D4DD9E0630A82B210021F0BA /* Build configuration list for PBXNativeTarget "BeautyList" */;
+			buildConfigurationList = D4DD9E0630A82B210021F0BA /* Build configuration list for PBXNativeTarget "BeautyShop" */;
 			buildPhases = (
 				D4DD9DEF30A82B1F0021F0BA /* Sources */,
 				D4DD9DF030A82B1F0021F0BA /* Frameworks */,
@@ -77,11 +76,11 @@
 			fileSystemSynchronizedGroups = (
 				D4DD9DF530A82B1F0021F0BA /* BeautyList */,
 			);
-			name = BeautyList;
+			name = BeautyShop;
 			packageProductDependencies = (
 			);
 			productName = BeautyList;
-			productReference = D4DD9DF330A82B1F0021F0BA /* BeautyList.app */;
+			productReference = D4DD9DF330A82B1F0021F0BA /* BeautyShop.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -99,7 +98,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D4DD9DEE30A82B1F0021F0BA /* Build configuration list for PBXProject "BeautyList" */;
+			buildConfigurationList = D4DD9DEE30A82B1F0021F0BA /* Build configuration list for PBXProject "BeautyShop" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -113,7 +112,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D4DD9DF230A82B1F0021F0BA /* BeautyList */,
+				D4DD9DF230A82B1F0021F0BA /* BeautyShop */,
 			);
 		};
 /* End PBXProject section */
@@ -323,7 +322,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D4DD9DEE30A82B1F0021F0BA /* Build configuration list for PBXProject "BeautyList" */ = {
+		D4DD9DEE30A82B1F0021F0BA /* Build configuration list for PBXProject "BeautyShop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D4DD9E0930A82B210021F0BA /* Debug */,
@@ -332,7 +331,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D4DD9E0630A82B210021F0BA /* Build configuration list for PBXNativeTarget "BeautyList" */ = {
+		D4DD9E0630A82B210021F0BA /* Build configuration list for PBXNativeTarget "BeautyShop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D4DD9E0730A82B210021F0BA /* Debug */,
